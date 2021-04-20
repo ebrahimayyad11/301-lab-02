@@ -7,7 +7,9 @@ function ajax() {
     dataType: 'text',
     success: function (data) {
       allData = JSON.parse(data);
-      addImgs(allData);
+      addAnimals(allData);
+      addImgs(allAnimals);
+      select(allAnimals);
       checkKeyword();
     },
     error: function () {
@@ -17,8 +19,43 @@ function ajax() {
 }
 
 ajax();
+var allAnimals = [];
 
+function Animal(arr) {
+  this.image_url = arr.image_url;
+  this.title = arr.title;
+  this.description = arr.description;
+  this.keyword = arr.keyword;
+  this.horns = arr.horns;
+  allAnimals.push(this);
+}
 
+function select (arr){
+  let newArr = [];
+  arr.forEach(item => {
+    if (newArr.length === 0){
+      newArr.push(item.keyword);
+    }else {
+      if (!newArr.includes(item.keyword)){
+        newArr.push(item.keyword);
+      }
+    }
+  });
+
+  newArr.forEach(item => {
+    let li = $('<option> </option>').text(item);
+    li.id = item;
+    li.class = 'data_container';
+    $('select').append(li);
+  });
+
+}
+
+function addAnimals (arr){
+  arr.forEach(item => {
+    new Animal(item);
+  });
+}
 
 let knowKeyword = (arr, keyword) => {
   console.log(arr.length);
@@ -40,47 +77,47 @@ function checkKeyword (){
 
     switch (selectedKeyword) {
     case 'narwhal': {
-      addImgs(knowKeyword(allData, 'narwhal'));
+      addImgs(knowKeyword(allAnimals, 'narwhal'));
       break;
     }
     case 'rhino': {
-      addImgs(knowKeyword(allData, 'rhino'));
+      addImgs(knowKeyword(allAnimals, 'rhino'));
       break;
     }
     case 'unicorn': {
-      addImgs(knowKeyword(allData, 'unicorn'));
+      addImgs(knowKeyword(allAnimals, 'unicorn'));
       break;
     }
     case 'unilego': {
-      addImgs(knowKeyword(allData, 'unilego'));
+      addImgs(knowKeyword(allAnimals, 'unilego'));
       break;
     }
     case 'triceratops': {
-      addImgs(knowKeyword(allData, 'triceratops'));
+      addImgs(knowKeyword(allAnimals, 'triceratops'));
       break;
     }
     case 'markhor': {
-      addImgs(knowKeyword(allData, 'markhor'));
+      addImgs(knowKeyword(allAnimals, 'markhor'));
       break;
     }
     case 'mouflon': {
-      addImgs(knowKeyword(allData, 'mouflon'));
+      addImgs(knowKeyword(allAnimals, 'mouflon'));
       break;
     }
     case 'addax': {
-      addImgs(knowKeyword(allData, 'addax'));
+      addImgs(knowKeyword(allAnimals, 'addax'));
       break;
     }
     case 'chameleon': {
-      addImgs(knowKeyword(allData, 'chameleon'));
+      addImgs(knowKeyword(allAnimals, 'chameleon'));
       break;
     }
     case 'lizard': {
-      addImgs(knowKeyword(allData, 'lizard'));
+      addImgs(knowKeyword(allAnimals, 'lizard'));
       break;
     }
     case 'dragon': {
-      addImgs(knowKeyword(allData, 'dragon'));
+      addImgs(knowKeyword(allAnimals, 'dragon'));
       break;
     }
     }
